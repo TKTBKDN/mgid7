@@ -5,8 +5,14 @@ import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { domain } from "../../domain";
 
-export async function getServerSideProps(context: any) {
-  const data = await fetchMeta(domain + "/doc-bao/" + context.params.slug);
+export async function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: "blocking",
+  };
+}
+export async function getStaticProps({ params }: { params: any }) {
+  const data = await fetchMeta(domain + "/doc-bao/" + params.slug);
   return {
     props: data,
   };
